@@ -1,5 +1,5 @@
-import React from "react"
-import { BsStarFill } from "react-icons/bs"
+import React from "react";
+import { BsStarFill } from "react-icons/bs";
 
 export default function Reviews() {
     const reviewsData = [
@@ -17,8 +17,8 @@ export default function Reviews() {
             text: "This is our third time using the Modest Explorer for our travels and we love it! No complaints, absolutely perfect!",
             id: "2",
         },
-    ]
-    
+    ];
+
     return (
         <section className="host-reviews">
             <div className="top-text">
@@ -29,7 +29,7 @@ export default function Reviews() {
             </div>
             <img
                 className="graph"
-                src="/assets/images/reviews-graph.png"
+                src="../assets/images/reviews-graph.png"
                 alt="Review graph"
             />
             <h3>Reviews (2)</h3>
@@ -49,5 +49,5 @@ export default function Reviews() {
                 </div>
             ))}
         </section>
-    )
+    );
 }
