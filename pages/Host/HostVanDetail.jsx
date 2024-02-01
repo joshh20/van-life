@@ -1,21 +1,21 @@
-import React from "react"
-import { useParams, Link, NavLink, Outlet, useLoaderData } from "react-router-dom"
-import { getHostVans } from "../../api"
-import { requireAuth } from "../../utils"
+import React from "react";
+import { useParams, Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
+import { getVan } from "../../api";
+import { requireAuth } from "../../utils";
 
 export async function loader({ params, request }) {
-    await requireAuth(request)
-    return getHostVans(params.id)
+    await requireAuth(request);
+    return getVan(params.id);
 }
 
 export default function HostVanDetail() {
-    const currentVan = useLoaderData()
+    const currentVan = useLoaderData();
 
     const activeStyles = {
         fontWeight: "bold",
         textDecoration: "underline",
         color: "#161616"
-    }
+    };
 
     return (
         <section>
@@ -63,5 +63,5 @@ export default function HostVanDetail() {
                 <Outlet context={{ currentVan }} />
             </div>
         </section>
-    )
+    );
 }
