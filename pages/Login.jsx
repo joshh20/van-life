@@ -1,37 +1,47 @@
-import React from "react"
+import React from "react";
 import {
     useLoaderData,
     useNavigation,
     Form,
     redirect,
     useActionData
-} from "react-router-dom"
-import { loginUser } from "../api"
+} from "react-router-dom";
+import { loginUser } from "../api";
 
 export function loader({ request }) {
-    return new URL(request.url).searchParams.get("message")
+    return new URL(request.url).searchParams.get("message");
 }
 
 export async function action({ request }) {
-    const formData = await request.formData()
-    const email = formData.get("email")
-    const password = formData.get("password")
-    const pathname = new URL(request.url)
-        .searchParams.get("redirectTo") || "/host"
-    
+    const formData = await request.formData();
+    const email = formData.get("email");
+    const password = formData.get("password");
+    let pathname;
     try {
-        const data = await loginUser({ email, password })
-        localStorage.setItem("loggedin", true)
-        return redirect(pathname)
-    } catch(err) {
-        return err.message
+        pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"; // Fallback to "/host" if null
+        // Ensure pathname is not null and is a string before calling replace.
+        if (pathname) {
+            // Correctly use .replace to modify the pathname variable.
+            pathname = pathname.replace("/van-life", "");
+        }
+    } catch (err) {
+        console.log(err);
+        pathname = "/host";
+    }
+
+    try {
+        const data = await loginUser({ email, password });
+        localStorage.setItem("loggedin", true);
+        return redirect(pathname);
+    } catch (err) {
+        return err.message;
     }
 }
 
 export default function Login() {
-    const errorMessage = useActionData()
-    const message = useLoaderData()
-    const navigation = useNavigation()
+    const errorMessage = useActionData();
+    const message = useLoaderData();
+    const navigation = useNavigation();
 
     return (
         <div className="login-container">
@@ -39,9 +49,9 @@ export default function Login() {
             {message && <h3 className="red">{message}</h3>}
             {errorMessage && <h3 className="red">{errorMessage}</h3>}
 
-            <Form 
-                method="post" 
-                className="login-form" 
+            <Form
+                method="post"
+                className="login-form"
                 replace
             >
                 <input
@@ -64,5 +74,5 @@ export default function Login() {
                 </button>
             </Form>
         </div>
-    )
+    );
 }
