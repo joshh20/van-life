@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { basename } from './config';
 
 export default defineConfig({
-	base: '/van-life/',
+	base: basename,
 	plugins: [react()]
 });

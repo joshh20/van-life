@@ -27,6 +27,7 @@ import Error from "./components/Error";
 import { requireAuth } from "./utils";
 
 import "./server";
+import { basename } from './config';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
@@ -100,7 +101,7 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>
 ),
   {
-    basename: '/van-life',
+    basename: basename,
   }
 );
 

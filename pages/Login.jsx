@@ -7,6 +7,7 @@ import {
     useActionData
 } from "react-router-dom";
 import { loginUser } from "../api";
+import { basename } from "../config";
 
 export function loader({ request }) {
     return new URL(request.url).searchParams.get("message");
@@ -18,11 +19,9 @@ export async function action({ request }) {
     const password = formData.get("password");
     let pathname;
     try {
-        pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"; // Fallback to "/host" if null
-        // Ensure pathname is not null and is a string before calling replace.
+        pathname = new URL(request.url).searchParams.get("redirectTo") || "/host";
         if (pathname) {
-            // Correctly use .replace to modify the pathname variable.
-            pathname = pathname.replace("/van-life", "");
+            pathname = pathname.replace(basename, "/");
         }
     } catch (err) {
         console.log(err);
