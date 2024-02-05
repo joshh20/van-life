@@ -45,6 +45,10 @@ export default function Login() {
     return (
         <div className="login-container">
             <h1>Sign in to your account</h1>
+            <h3>Here is the demo login</h3>
+            <span><b>Username</b>: b@b.com</span>
+            <span><b>Password</b>: p123</span>
+            <br></br>
             {message && <h3 className="red">{message}</h3>}
             {errorMessage && <h3 className="red">{errorMessage}</h3>}
 
